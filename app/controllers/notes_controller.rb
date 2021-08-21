@@ -37,7 +37,8 @@ class NotesController < ApplicationController
   private
 
     def set_note
-      @note = Note.find params[:id]
+      @note = current_user.notes.find_by id: params[:id]
+      @note = current_user.guest_notes.find params[:id] unless @note.present?
     end
 
     def note_params
